@@ -40,12 +40,12 @@ kubectl scale deploy streamlit --replicas=8
 kubectl scale deploy model --replicas=1
 kubectl scale deploy model --replicas=3
 
-5️⃣ Update Streamlit Deployment & Rollout
+5️⃣ Update Streamlit & Model Deployment & Rollout
 # Update Streamlit deployment with new images
 kubectl set image deploy streamlit streamlit=jaylaksh94/streamlit:v2   
 kubectl set image deploy streamlit streamlit=jaylaksh94/streamlit:v5  
 
-kubectl set image deploy model model=jaylaksh94/house-pricemodel:latest 
+kubectl set image deployment model house-pricemodel=jaylaksh94/house-pricemodel:latest
 
 
 # Check rollout status
