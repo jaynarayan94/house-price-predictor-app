@@ -142,16 +142,16 @@ kubectl create service nodeport streamlit --tcp=8501 --node-port=30000 \
 
 ### Apply manifests
 ```bash
-- kubectl apply -f model-deploy.yaml
-- kubectl apply -f model-service.yaml
-- kubectl apply -f streamlit-deploy.yaml
-- kubectl apply -f streamlit-service.yaml
+kubectl apply -f model-deploy.yaml
+kubectl apply -f model-service.yaml
+kubectl apply -f streamlit-deploy.yaml
+kubectl apply -f streamlit-service.yaml
 ```
 ## Verfy
 ```bash
-- kubectl get deployments
-- kubectl get pods
-- kubectl get svc
+kubectl get deployments
+kubectl get pods
+kubectl get svc
 ```
 
 
