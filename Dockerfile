@@ -6,8 +6,9 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Upgrade pip and install dependencies
-RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install prometheus-fastapi-instrumentator prometheus-client
+RUN pip install -r requirements.txt
 
 # Copy app source code
 COPY src/api/ .
