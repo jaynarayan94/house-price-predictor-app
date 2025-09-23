@@ -133,3 +133,27 @@ kubectl create service nodeport streamlit --tcp=8501 --node-port=30000 \
 - kubectl get pods
 - kubectl get svc
 ```
+
+
+## Updating Model Deployment
+
+There are two common ways to update or refresh the model deployment:
+
+### 1. Update the image explicitly
+Use this when you build and push a new image version (with a different tag).
+```bash
+kubectl set image deployment/model house-pricemodel=jaylaksh94/house-pricemodel:latest
+```
+
+- deployment/model → deployment name
+- house-pricemodel → container name inside the deployment
+- jaylaksh94/house-pricemodel:latest → new image
+- This triggers a rollout only if the image tag differs.
+
+### 2. Restart the deployment
+- Use this when you push a new image with the same tag (e.g., latest) and want pods to redeploy.
+
+```bash
+kubectl rollout restart deployment model
+```
+- This forces Kubernetes to kill existing pods and start new ones, pulling the same image tag again
