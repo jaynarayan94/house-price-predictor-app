@@ -1,72 +1,92 @@
 # Kubernetes Deployment Code 
 1️⃣ Build & Push Docker Images
 # Build Streamlit images
+```bash
 docker image build -t jaylaksh94/streamlit:v1 .
 docker image build -t jaylaksh94/streamlit:v2 .
 docker image build -t jaylaksh94/streamlit:v4 .
 docker image build -t jaylaksh94/streamlit:v5 .
+```
 
 # Push Streamlit images
+```bash
 docker image push jaylaksh94/streamlit:v1
 docker image push jaylaksh94/streamlit:v2
 docker image push jaylaksh94/streamlit:v4
 docker image push jaylaksh94/streamlit:v5
+```
 
 # Build Model API image
+```bash
 docker image build -t jaylaksh94/house-pricemodel:latest .
-
+```
 # Push Model API image
+```bash
 docker image push jaylaksh94/house-pricemodel:latest
-
+```
 2️⃣ Deploy Streamlit on Kubernetes
 # Create Streamlit deployment (v1 image)
+```bash
 kubectl create deployment streamlit --image=jaylaksh94/streamlit:v1 --port=8501  
-
+```
 # Expose Streamlit via NodePort service
+```bash
 kubectl create service nodeport streamlit --tcp=8501 --node-port=30000  
+```
 
 3️⃣ Deploy Model API on Kubernetes
 # Deployment
+```bash
 kubectl create deployment model --image=jaylaksh94/house-pricemodel:latest --port=8000 --replicas=2  
-
-# Expose Model API via NodePort
+```
+# Expose Model API via NodePort.
+```bash
 kubectl create service nodeport model --tcp=8000 --node-port=30100  
+```
 
 4️⃣ Scale Deployments
 # Scale Streamlit replicas
+```bash
 kubectl scale deploy streamlit --replicas=4
 kubectl scale deploy streamlit --replicas=8
-
+```
 # Scale Model API replicas
+```bash
 kubectl scale deploy model --replicas=1
 kubectl scale deploy model --replicas=3
-
+```
 5️⃣ Update Streamlit Deployment & Rollout
 # Update Streamlit deployment with new images
+```bash
 kubectl set image deploy streamlit streamlit=jaylaksh94/streamlit:v2   
 kubectl set image deploy streamlit streamlit=jaylaksh94/streamlit:v5  
+```
 
 # Check rollout status
+```bash
 kubectl rollout status deployment streamlit  
-
+```
 6️⃣ Useful Commands
 # Get pods, services, deployments, replicasets
+```bash
 kubectl get pods
 kubectl get all
+```
 
 # Describe deployments
+```bash
 kubectl describe deployment streamlit
 kubectl describe deployment model
-
+```
 # Watch resources (if 'watch' is installed)
+```bash
 watch kubectl get all  
-
-# Export command history
-history > my_commands.txt  
+```
 
 # command won’t actually create the service, but instead prints the YAML spec you could apply.
+```bash
 kubectl create service nodeport model --tcp=8000 --node-port=30100 --dry-run=client -o yaml
-
+```
 
 7️⃣ Deployment Architecture
 flowchart TD
