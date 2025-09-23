@@ -7,9 +7,7 @@ from prometheus_fastapi_instrumentator import Instrumentator
 # Initialize FastAPI app with metadata
 app = FastAPI(
     title="House Price Prediction API",
-    description=(
-        "An API for predicting house prices based on various features. "
-    ),
+    description="An API for predicting house prices based on various features.",
     version="1.0.0",
     contact={
         "name": "Jay Narayan",
@@ -30,12 +28,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize and instrument Prometheus metrics
-Instrumentator().instrument(app).expose(app)
-# instrumentator = Instrumentator().instrument(app)
-# @app.on_event("startup")
-# async def _startup():
-#     instrumentator.expose(app)
+# Create and apply Prometheus instrumentation exactly once
+instrumentator = Instrumentator()
+instrumentator.instrument(app)
+instrumentator.expose(app)
 
 # Health check endpoint
 @app.get("/health", response_model=dict)
