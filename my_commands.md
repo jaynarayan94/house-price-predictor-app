@@ -36,7 +36,7 @@ kubectl create service nodeport model --tcp=8000 --node-port=30100
 kubectl scale deploy streamlit --replicas=4
 kubectl scale deploy streamlit --replicas=8
 
-# Scale Model API replicas
+## Scale Model API replicas
 kubectl scale deploy model --replicas=1
 kubectl scale deploy model --replicas=3
 
@@ -44,6 +44,9 @@ kubectl scale deploy model --replicas=3
 # Update Streamlit deployment with new images
 kubectl set image deploy streamlit streamlit=jaylaksh94/streamlit:v2   
 kubectl set image deploy streamlit streamlit=jaylaksh94/streamlit:v5  
+
+kubectl set image deploy model model=jaylaksh94/house-pricemodel:latest 
+
 
 # Check rollout status
 kubectl rollout status deployment streamlit  
