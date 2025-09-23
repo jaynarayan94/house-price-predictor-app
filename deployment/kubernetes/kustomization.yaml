@@ -1,0 +1,5 @@
+resources:
+  - model-deploy.yaml
+  - model-service.yaml
+  - streamlit-deploy.yaml
+  - streamlit-service.yaml

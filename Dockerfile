@@ -16,8 +16,8 @@ COPY src/api/ .
 # Copy model files
 COPY models/trained/*.pkl models/trained/
 
-# Expose port 8000
-EXPOSE 8000
+# Expose port 8000 & 9100 for Prometheus metrics
+EXPOSE 8000 9100
 
 # Run the app with uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
