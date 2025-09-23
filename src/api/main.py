@@ -31,10 +31,11 @@ app.add_middleware(
 )
 
 # Initialize and instrument Prometheus metrics
-instrumentator = Instrumentator().instrument(app)
-@app.on_event("startup")
-async def _startup():
-    instrumentator.expose(app)
+Instrumentator().instrument(app).expose(app)
+# instrumentator = Instrumentator().instrument(app)
+# @app.on_event("startup")
+# async def _startup():
+#     instrumentator.expose(app)
 
 # Health check endpoint
 @app.get("/health", response_model=dict)
