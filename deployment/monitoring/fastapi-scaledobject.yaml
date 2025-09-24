@@ -17,10 +17,14 @@ spec:
         metricName: fastapi_latency_p95
         query: |
           histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[1m])) by (le))
-        threshold: "0.4"        # adjust as needed
-    - type: prometheus
+        threshold: "0.08"        # adjust as needed
+    # - type: prometheus
+    #   metadata:
+    #     serverAddress: http://prom-kube-prometheus-stack-prometheus.monitoring.svc:9090
+    #     metricName: request_rate
+    #     query: sum(rate(http_requests_total[1m]))
+    #     threshold: "20"       # adjust as needed
+    - type: cpu
       metadata:
-        serverAddress: http://prom-kube-prometheus-stack-prometheus.monitoring.svc:9090
-        metricName: request_rate
-        query: sum(rate(http_requests_total[1m]))
-        threshold: "1000"       # adjust as needed
+        type: Utilization        # Allowed: Utilization or AverageValue
+        value: "50"              # CPU utilization percentage threshold
