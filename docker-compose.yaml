@@ -1,6 +1,6 @@
 services:
   fastapi:
-    image: jaylaksh94/fastapi:dev
+    image: jaylaksh94/fastapi:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,7 +8,7 @@ services:
       - "8000:8000"
  
   streamlit:
-    image: jaylaksh94/streamlit:dev
+    image: jaylaksh94/streamlit:latest
     build:
       context: ./streamlit_app
       dockerfile: Dockerfile
