@@ -18,7 +18,8 @@ spec:
         app: streamlit
     spec:
       containers:
-      - image: jaylaksh94/streamlit:v5
+      - image: jaylaksh94/streamlit:latest
+        imagePullPolicy: Always
         name: streamlit
         ports:
         - containerPort: 8501
